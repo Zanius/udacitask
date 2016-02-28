@@ -4,14 +4,14 @@ module Listable
     "#{description}".ljust(30)
   end
 
-  def format_date(options = {})
-    @due = options[:due]
-    @due ? @due.strftime("%D") : "No due date"
-    dates = []
-    start_date = options[:start_date].strftime("%D")
-    end_date = options[:end_date].strftime("%D")
-    dates << start_date + "--"
-    dates << end_date
+  def format_date(first_date, second_date=nil)
+    first_date = first_date ? first_date.strftime("%D") : "No due date" 
+
+
+    dates = first_date
+    dates << "--" + second_date.strftime("%D") if second_date
     dates = "N/A" if !dates
+
+    return dates
   end
 end
