@@ -4,6 +4,11 @@ module Listable
     "#{description}".ljust(30)
   end
 
+  def format_type(type)
+    type = type.capitalize + ": "
+    return type
+  end
+
   def format_date(first_date, second_date=nil)
     first_date = first_date ? first_date.strftime("%D") : "No due date" 
 
@@ -16,9 +21,9 @@ module Listable
   end
 
   def format_priority(priority)
-    value = " ⇧" if priority == "high"
-    value = " ⇨" if priority == "medium"
-    value = " ⇩" if priority == "low"
+    value = " ⇧".colorize(:red) if priority == "high"
+    value = " ⇨".colorize(:yellow) if priority == "medium"
+    value = " ⇩".colorize(:green) if priority == "low"
     value = "" if !priority
     return value
   end

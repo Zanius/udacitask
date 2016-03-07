@@ -10,11 +10,11 @@ class UdaciList
     type = type.downcase
     case type
     when "todo" 
-      @items.push TodoItem.new(description, options)
+      @items.push TodoItem.new(type, description, options)
     when "event"
-      @items.push EventItem.new(description, options)
+      @items.push EventItem.new(type, description, options)
     when "link"
-      @items.push LinkItem.new(description, options) 
+      @items.push LinkItem.new(type, description, options) 
     else
       raise UdaciListErrors::InvalidItemType, "Please enter 'todo', 'event', or 'type'."
     end
@@ -22,20 +22,11 @@ class UdaciList
 
   def filter(type)
     puts "-" * @title.length
-    puts @title
+    puts "Filtered " + @title
     puts "-" * @title.length
 
-    case type
-    when "event"
-      type = EventItem
-    when "todo"
-      type = TodoItem
-    when "link"
-      type = LinkItem
-    end
-    
     @items.each do |item|
-      (p item.details) if item.class == type
+      (p item.details) if item.type == type
     end
   end
 

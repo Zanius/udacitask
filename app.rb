@@ -2,6 +2,7 @@ require 'chronic'
 require 'colorize'
 # Find a third gem of your choice and add it to your project
 require 'date'
+require 'highline'
 require_relative "lib/listable"
 require_relative "lib/errors"
 require_relative "lib/udacilist"
@@ -45,3 +46,33 @@ new_list.all
 # DEMO FILTER BY ITEM TYPE
 # ------------------------
 new_list.filter("event")
+
+
+
+# User input for new lists
+puts "Please create a new list."
+puts "*" * 10
+
+input = HighLine.new
+
+user_title = input.ask "What is the name of your list? "
+inputted_list = UdaciList.new(title: user_title)
+puts "Your title is #{user_title}."
+
+user_type = input.ask "Please enter an item type (todo, event, or link)."
+puts user_type
+
+
+case user_type
+when "todo"
+  user_desc = input.ask "Please enter a description."
+  user_due = input.ask "Please enter a due date."
+  user_priority = input.ask "Please enter a priority (high, medium, low)"
+when "event"
+  user_desc = input.ask "Please enter a description."
+  user_start = input.ask "Please enter a start date."
+  user_end = input.ask "Please enter an end date."
+when link 
+end
+
+puts user_desc
