@@ -47,32 +47,68 @@ new_list.all
 # ------------------------
 new_list.filter("event")
 
+# Initializing highline, a gem for user input
+cli = HighLine.new
 
-
-# User input for new lists
+# Instructions to user for creating a new list
+puts "-" * 15 + "\n"
 puts "Please create a new list."
-puts "*" * 10
+user_title = cli.ask "What is the name of your list? "
 
-input = HighLine.new
-
-user_title = input.ask "What is the name of your list? "
 inputted_list = UdaciList.new(title: user_title)
-puts "Your title is #{user_title}."
 
-user_type = input.ask "Please enter an item type (todo, event, or link)."
-puts user_type
+user_params = []
 
+# number_of_items = cli.ask "How many items would you like in your list?"
 
-case user_type
-when "todo"
-  user_desc = input.ask "Please enter a description."
-  user_due = input.ask "Please enter a due date."
-  user_priority = input.ask "Please enter a priority (high, medium, low)"
-when "event"
-  user_desc = input.ask "Please enter a description."
-  user_start = input.ask "Please enter a start date."
-  user_end = input.ask "Please enter an end date."
-when link 
+# Takes a list and the user inputted parameters and adds those parameters to the list
+def input_list_creator(list, array)
+  if array.length > 3
+    hash = array[2].merge(array[3]) 
+  else
+    hash = array[2]
+  end
+  list.add(array[0], array[1], hash)
 end
 
-puts user_desc
+
+while true do
+  cli.choose do |menu|
+    menu.prompt = "Please select an item type or finish your list."
+    menu.choice(:todo) { 
+      user_params << "todo"
+      user_params << cli.ask("Please enter a description")
+      user_params << {due: cli.ask("Please enter a due date.")}
+      cli.choose do |pri_menu|
+        pri_menu.prompt = "Please select a priority."
+          pri_menu.choice(:high){ user_params << {priority: "high"} }
+          pri_menu.choice(:medium){ user_params << {priority: "medium"} }
+          pri_menu.choice(:low){ user_params << {priority: "low"} } 
+      end
+      input_list_creator(inputted_list, user_params)
+      user_params = []
+      puts "*" * 10 + "\n"
+     } 
+    menu.choice(:event) {  
+      user_params << "event"
+      user_params << cli.ask("Please enter a description")
+      user_params << {start_date: cli.ask("Please enter a start date.")}
+      user_params << {end_date: cli.ask("Please enter an end date.")}
+      puts "*" * 10 + "\n"
+      input_list_creator(inputted_list, user_params)
+      user_params = []
+    }
+    menu.choice(:link) { 
+      user_params << "link"
+      user_params << cli.ask("Please enter a link")
+      user_params << {site_name: cli.ask("Please enter a site name.")}
+      puts "*" * 10 + "\n"
+      input_list_creator(inputted_list, user_params)
+      user_params = []
+    }
+    menu.choice(:finish) { 
+      inputted_list.all
+      exit
+    }
+  end
+end

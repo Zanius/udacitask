@@ -16,7 +16,7 @@ class UdaciList
     when "link"
       @items.push LinkItem.new(type, description, options) 
     else
-      raise UdaciListErrors::InvalidItemType, "Please enter 'todo', 'event', or 'type'."
+      raise UdaciListErrors::InvalidItemType, "Please enter 'todo', 'event', or 'link'."
     end
   end
 
