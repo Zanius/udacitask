@@ -59,8 +59,6 @@ inputted_list = UdaciList.new(title: user_title)
 
 user_params = []
 
-# number_of_items = cli.ask "How many items would you like in your list?"
-
 # Takes a list and the user inputted parameters and adds those parameters to the list
 def input_list_creator(list, array)
   if array.length > 3
@@ -71,7 +69,7 @@ def input_list_creator(list, array)
   list.add(array[0], array[1], hash)
 end
 
-
+# loop for adding items to inputted list until user decides to exit
 while true do
   cli.choose do |menu|
     menu.prompt = "Please select an item type or finish your list."

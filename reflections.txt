@@ -1,13 +1,40 @@
 # What you added to Udacitask 2.0
 # -------------------------------------------------------
+
 1. What is the gem of your choice and how did you use it?
+
+I used the highline gem to simplify user input, especially for it's menu system.
+
+
 2. Describe the 2 features you added to the project.
-  a) Feature 1...
-  b) Feature 2...
+  
+a) I added the ability for a user to create a list using command line input. 
+  
+b) Displayed the names of the priority values for the benefit of windows users.
+
+
 
 # REFLECTIONS
 # -------------------------------------------------------
+
 1. How long did you spend working on this project?
+
+
+Several hours of the course of 3 or 4 days.
+
 2. What was the most rewarding challenge you conquered?
+
+Figuring out the merge function for hashes so I could pass multiple hashes into a method.
+
+
 3. What two additional features did you build? Why?
+
+a. I added user input functionality. It seemed like a logical choice, and the way I did it guides the user into inputting correct formats without so many errors.
+
+b. I displayed the priority type instead of just the arrows because the arrows don't appear as valid characters for windows users because a red question mark was very confusing.
+
+
+
 4. Where do you still have room to grow?
+
+I feel like I could use modules more effectively when I code on my own time.
